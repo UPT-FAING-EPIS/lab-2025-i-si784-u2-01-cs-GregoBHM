@@ -23,7 +23,7 @@ namespace Math.Lib
             double result = input;
             double previousResult = -input;
 
-            while (Math.Abs(previousResult - result) > result / 1000)
+            while (System.Math.Abs(previousResult - result) > result / 1000)
             {
                 previousResult = result;
                 result = result - (result * result - input) / (2 * result);
