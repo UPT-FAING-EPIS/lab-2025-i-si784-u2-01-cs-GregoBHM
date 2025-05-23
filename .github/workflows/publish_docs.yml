@@ -9,8 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+    - uses: actions/checkout@v3
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
@@ -20,9 +19,8 @@ jobs:
     - name: Install DocFX
       run: dotnet tool update -g docfx
 
-    - name: Generate Documentation
-      run: |
-        docfx docfx.json
+    - name: Build Documentation
+      run: docfx docfx.json
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3

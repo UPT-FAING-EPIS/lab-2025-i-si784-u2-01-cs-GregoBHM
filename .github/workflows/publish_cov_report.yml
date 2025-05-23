@@ -5,19 +5,18 @@ on:
     branches: [main]
 
 jobs:
-  coverage-report:
+  coverage:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+    - uses: actions/checkout@v3
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '8.0.x'
 
-    - name: Restore dependencies
+    - name: Restore
       run: dotnet restore
 
     - name: Run tests with coverage
@@ -26,7 +25,7 @@ jobs:
     - name: Install ReportGenerator
       run: dotnet tool install -g dotnet-reportgenerator-globaltool
 
-    - name: Generate coverage report
+    - name: Generate HTML Report
       run: |
         reportgenerator "-reports:**/coverage.cobertura.xml" "-targetdir:coverage" -reporttypes:Html
 
