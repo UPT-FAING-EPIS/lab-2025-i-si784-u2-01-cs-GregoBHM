@@ -1,0 +1,21 @@
+{
+  "source_base_path": "/home/runner/work/lab-2025-i-si784-u2-01-cs-GregoBHM/lab-2025-i-si784-u2-01-cs-GregoBHM",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Conceptual",
+      "source_relative_path": "README.md",
+      "output": {
+        ".html": {
+          "relative_path": "README.html"
+        }
+      },
+      "version": ""
+    }
+  ],
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}
