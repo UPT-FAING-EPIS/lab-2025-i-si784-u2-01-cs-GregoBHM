@@ -17,6 +17,14 @@ namespace Math.Tests
         }
 
         [TestMethod]
+        public void SquareRootOfTwentyFive_IsFive()
+        {
+            Rooter rooter = new Rooter();
+            double result = rooter.SquareRoot(25);
+            Assert.AreEqual(5.0, result, delta: 0.01);
+        }
+
+        [TestMethod]
         public void RooterTestNegativeInput()
         {
             Rooter rooter = new Rooter();
