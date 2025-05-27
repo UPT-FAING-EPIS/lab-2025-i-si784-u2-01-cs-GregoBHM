@@ -18,7 +18,7 @@ jobs:
 
     - name: Restore
       run: dotnet restore
-      working-directory: ./sr
+      working-directory: ./src
 
     - name: Run tests with coverage
       run: dotnet test --collect:"XPlat Code Coverage"
