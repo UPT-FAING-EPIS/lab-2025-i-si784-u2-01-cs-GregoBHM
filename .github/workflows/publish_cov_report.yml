@@ -18,9 +18,11 @@ jobs:
 
     - name: Restore
       run: dotnet restore
+      working-directory: ./sr
 
     - name: Run tests with coverage
       run: dotnet test --collect:"XPlat Code Coverage"
+      working-directory: ./src 
 
     - name: Install ReportGenerator
       run: dotnet tool install -g dotnet-reportgenerator-globaltool
