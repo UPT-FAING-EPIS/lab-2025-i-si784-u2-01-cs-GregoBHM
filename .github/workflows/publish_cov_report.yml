@@ -1,38 +1,45 @@
 name: Publish Coverage Report
-
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
-  coverage:
+  build-test-and-publish-coverage:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '8.0.x'
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
 
-    - name: Restore
-      run: dotnet restore
-      working-directory: ./src
+      - name: Restore dependencies
+        run: dotnet restore MyMath/MyMath.sln
 
-    - name: Run tests with coverage
-      run: dotnet test --collect:"XPlat Code Coverage"
-      working-directory: ./src 
+      - name: Build solution
+        run: dotnet build MyMath/MyMath.sln --configuration Release --no-restore
 
-    - name: Install ReportGenerator
-      run: dotnet tool install -g dotnet-reportgenerator-globaltool
+      - name: Install ReportGenerator
+        run: dotnet tool install -g dotnet-reportgenerator-globaltool
 
-    - name: Generate HTML Report
-      run: |
-        reportgenerator "-reports:**/coverage.cobertura.xml" "-targetdir:coverage" -reporttypes:Html
+      - name: Run tests with coverage
+        run: |
+          dotnet test MyMath/MyMath.sln --configuration Release --no-build --collect:"XPlat Code Coverage"
+          ~/.dotnet/tools/reportgenerator -reports:"MyMath/Math.Tests/TestResults/**/*.cobertura.xml" -targetdir:MyMath/Cobertura -reporttypes:Html
 
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./coverage
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: MyMath/Cobertura
+
+      - name: Deploy coverage report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: MyMath/Cobertura
+          destination_dir: cobertura
