@@ -1,0 +1,49 @@
+{
+  "$schema": "https://raw.githubusercontent.com/dotnet/docfx/main/schemas/docfx.schema.json",
+  "metadata": [
+    {
+      "src": [
+        {
+          "src": "../MyMath/Math.Lib",
+          "files": [ "*.csproj" ]
+        }
+      ],
+      "properties": {
+        "TargetFramework": "net8.0"
+      }
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": [
+          "*.yml",
+          "articles/**.md",
+          "toc.yml",
+          "index.md"
+        ],
+        "exclude": [
+          "_site/**"
+        ]
+      }
+    ],
+    "resource": [
+      {
+        "files": [
+          "images/**"
+        ]
+      }
+    ],
+    "output": "_site",
+    "template": [
+      "default",
+      "modern"
+    ],
+    "globalMetadata": {
+      "_appName": "Documentaci\u00F3n de MyMath",
+      "_appTitle": "Documentaci\u00F3n de MyMath",
+      "_enableSearch": true,
+      "pdf": true
+    }
+  }
+}
